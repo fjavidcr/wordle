@@ -1,6 +1,6 @@
 const validLongitudes: Array<number> = [3, 4, 5, 6, 7, 8, 9, 10]
 
-const validWord = (word: string, longitude: number) => {
+const validateWord = (word: string, longitude: number) => {
   return word.length === longitude
 }
 
@@ -12,10 +12,11 @@ export async function getRandomWord(longitude: number) {
     let wordIsValid = false
     while (!wordIsValid) {
       const randomIndex = Math.floor(Math.random() * db.length)
-      console.log(`${randomIndex} of ${db.length}`)
       chosenWord = db[randomIndex]
-      console.log(chosenWord)
-      if (validWord(chosenWord, longitude)) wordIsValid = true
+      console.log(
+        `${chosenWord} [${chosenWord.length}] -- ${randomIndex} of ${db.length}`
+      )
+      wordIsValid = validateWord(chosenWord, longitude)
     }
     return chosenWord
   }
