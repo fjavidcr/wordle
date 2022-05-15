@@ -12,7 +12,8 @@ export const useMainStore = defineStore({
   }),
   getters: {
     wordName: (state) => state.word.name,
-    wordLonitude: (state) => state.word.longitude
+    wordLonitude: (state) => state.word.longitude,
+    wordRaeLink: (state) => `https://dle.rae.es/${state.word.name}`
   },
   actions: {
     async chooseWord(longitude?: number) {
