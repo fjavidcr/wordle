@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { useMainStore } from '@/store'
+import { computed } from '@vue/reactivity'
 
 const mainStore = useMainStore()
 const props = defineProps({
-  opportunity: Number
+  opportunity: Number,
+  currentOpportunity: Number,
+  guessWord: String,
+  wordLongitude: Number,
+  status: String
 })
+
+const getLetter = (index: number) => {
+  const letterExists = props.guessWord && props.guessWord.length >= index
+  return letterExists ? props.guessWord[index] : ' '
+}
 </script>
 <template>
   <div class="grid-row">
@@ -13,7 +23,7 @@ const props = defineProps({
       :key="`'grid-row-${props.opportunity}-cell-${index}`"
       v-for="index in mainStore.wordLonitude"
     >
-      {{ index }}
+      {{ getLetter(index - 1) }}
     </div>
   </div>
 </template>
