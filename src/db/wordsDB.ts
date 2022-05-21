@@ -1,6 +1,9 @@
+import { ALPHABET } from '../utils/constants'
+
 const validLongitudes: Array<number> = [3, 4, 5, 6, 7, 8, 9, 10]
 
 const validateWord = (word: string, longitude: number) => {
+  // TODO CHECK ILLIGAL CHARS
   return word.length === longitude
 }
 
