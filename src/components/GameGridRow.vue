@@ -15,6 +15,7 @@ const getLetter = (index: number) => {
   const letterExists = props.guessWord && props.guessWord.length >= index
   return letterExists ? props.guessWord[index] : ' '
 }
+// TODO define styles for letters --> correct, contained, failed
 </script>
 <template>
   <div class="grid-row">

@@ -3,22 +3,14 @@ import { onMounted, reactive } from 'vue'
 import { useMainStore } from '@/store'
 import { computed } from '@vue/reactivity'
 import GameGridRow from './GameGridRow.vue'
-// import { ALPHABET } from '@/utils/constants'
+import utils from '@/utils'
 import Keyboard from 'simple-keyboard'
 import 'simple-keyboard/build/css/index.css'
 
 const mainStore = useMainStore()
 const guessOppotunities = computed(() => mainStore.wordLonitude)
 let currentOpportunity = 0
-const initGuessData = []
-for (let i = 0; i < guessOppotunities.value; i++) {
-  initGuessData.push({
-    opportunityNumber: i + 1,
-    word: '',
-    status: 'todo'
-  })
-}
-const guessData = reactive(initGuessData)
+const guessData = reactive(utils.initGuessData(guessOppotunities.value))
 
 onMounted(() => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,21 +30,12 @@ onMounted(() => {
     maxLength: mainStore.wordLonitude,
     onChange: (input: string) => {
       guessData[currentOpportunity].word = input
-      console.log('Input changed', {
-        input,
-        guessWord: guessData[currentOpportunity].word
-      })
+      console.log({ input, guessWord: guessData[currentOpportunity].word })
+      if (guessData[currentOpportunity].status === 'todo') {
+        guessData[currentOpportunity].status = 'doing'
+      }
     },
-    onKeyPress: (button: string) => {
-      console.log('Button pressed', button)
-      // if (button === '{bksp}') {
-      //   guessWord.pop()
-      // } else if (guessWord.length < mainStore.wordLonitude) {
-      //   guessWord.push(button)
-      // } else {
-      //   console.log('guessWord completed!')
-      // }
-    }
+    onKeyPress: (button: string) => console.log('Button pressed', button)
   })
 })
 </script>
